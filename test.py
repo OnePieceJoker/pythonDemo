@@ -1,17 +1,20 @@
 #! /usr/bin/python3
 from bs4 import BeautifulSoup
 import requests,re
-#Í¼Êé¹İÍøÖ·
+'''
+åŸºäºbeautifulSoupæ¥çˆ¬å–ç½‘é¡µä¿¡æ¯
+'''
+#å›¾ä¹¦é¦†ç½‘å€
 ROOT_URL = 'http://opac.ahau.edu.cn/opac/item.php?marc_no='
-#Î±Ôìä¯ÀÀÆ÷
+#ä¼ªé€ æµè§ˆå™¨
 def download_html(url):
-    #Î±Ôì»ğºüä¯ÀÀÆ÷
+    #ä¼ªé€ ç«ç‹æµè§ˆå™¨
     headers = {'User-Agent':'Mozilla/5.0(X11;Ubuntu;Linux x86_64;rv:54.0)Gecko/20100101 Firefox/54.0'}
     return requests.get(url,headers=headers).content
 
-#»ñÈ¡Êı¾İ
+#è·å–æ•°æ®
 def parse_html(html):
-    #¹¹ÔìbeautifulSoup¶ÔÏó
+    #æ„é€ beautifulSoupå¯¹è±¡
     soup = BeautifulSoup(html,'lxml')
     book_list = soup.find('div',attrs={'id':'tab_item'})
 
@@ -22,7 +25,7 @@ def parse_html(html):
         isbn = []
         suoshuhao = val.find('td',attrs={'width':'10%'})
         #print(suoshuhao)
-		#£¡£¡£¡Òª½øĞĞÅĞ¶¨ÍøÒ³ÊÇ·ñÓĞÎÒÃÇÏëÒªµÄÄÚÈİ
+		#ï¼ï¼ï¼è¦è¿›è¡Œåˆ¤å®šç½‘é¡µæ˜¯å¦æœ‰æˆ‘ä»¬æƒ³è¦çš„å†…å®¹
         if(suoshuhao):
             suoshu = suoshuhao.getText()
         else :
