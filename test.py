@@ -16,9 +16,11 @@ def download_html(url):
 def parse_html(html):
     #构造beautifulSoup对象
     soup = BeautifulSoup(html,'lxml')
+#要获取的div
     book_list = soup.find('div',attrs={'id':'tab_item'})
 
     result = []
+#通过查看网页源代码来获得自己想要的信息，这里是获得图书的索书号和条码号
     for val in book_list.find_all('table',attrs={'id':'item'}):
         tr = val.find_all('tr',attrs={'class':'whitetext'})
         add = {}
@@ -49,7 +51,8 @@ def parse_html(html):
 if __name__ == '__main__':
     result = []
     with open('lib2.txt','a') as file:
-        for start in range(9965,9968):
+#找到url的规律：http://opac.ahau.edu.cn/opac/item.php?marc_no=0000000001开始，递增
+        for start in range(10,1000):
             if start < 100:
                 url = ROOT_URL + '00000000' + str(start)
                 print(url)
